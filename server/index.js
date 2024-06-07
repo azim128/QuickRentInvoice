@@ -1,11 +1,18 @@
 import cors from "cors";
+// import dotenv from "dotenv";
 import express from "express";
-import { globalErrorHandler, notFoundHandler } from "./middlewares/errorHandlers.middleware.js";
+import connectDB from "./config/db.config.js";
+import { PORT } from "./config/variable.config.js";
+import {
+  globalErrorHandler,
+  notFoundHandler,
+} from "./middlewares/errorHandlers.middleware.js";
 import { success } from "./middlewares/responseHandler.middleware.js";
 import CarRouters from "./routers/car.routes.js";
 import RentalRouters from "./routers/rental.routes.js";
+
 const app = express();
-const PORT = process.env.PORT || 5000;
+
 
 // Middleware setup
 app.use(express.json());
@@ -21,15 +28,17 @@ app.get("/health", (req, res) => {
   success(res, "Server Running", "OK!");
 });
 
-
 // Not found handler
 app.use(notFoundHandler);
 
 // Global error handler
 app.use(globalErrorHandler);
 
+// db connect then listen
 
-// listen
-app.listen(PORT, () => {
-  console.log(`Server is running on port http://localhost:${PORT}`)
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port http://localhost:${PORT}`);
+  });
 });
+
