@@ -79,6 +79,7 @@ const handlePrint = () => {
               <h3 className="text-xl font-semibold">UNIT DETAILS</h3>
               <p>Unit: {rentaldata.car.type}</p>
               <p>Make & Model: {rentaldata.car.model}</p>
+              <p>Rental Duration:{rentalDuration}</p>
             </section>
 
             {/* BILL TO */}
