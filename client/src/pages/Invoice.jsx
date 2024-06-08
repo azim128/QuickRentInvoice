@@ -1,67 +1,69 @@
-import { useContext } from "react";
+import { useContext ,useRef} from "react";
 import { CarContext } from "../contexts/CarContext";
 import PageHeader from "../components/common/PageHeader";
-
+import {Link} from "react-router-dom"
 const Invoice = () => {
-  //   const { customer, car, payment, rentalInfo, charges } = rentalDetails;
+  //   const { rental.customer, car, payment, rentalInfo, charges } = rentalDetails;
   const { rental } = useContext(CarContext);
   const { data } = rental;
   const {
-    customer,
-    car,
-    pickupDate,
-    dropoffDate,
-    discounts,
-    additionalCharges,
-    totalAmount,
+    rental:rentaldata,
+    totalEstimatePrice,
+    discountAmount,
+    additionalCost,
+    totalPrice,
+    message,
+    rentalDuration,
   } = data;
 
-  console.log(car);
+  console.log("from:",data);
+const printRef = useRef();
 
-  const randomValue = generateRandomString();
-  const rentalInfo = {
-    reservationNumber: randomValue,
-    repairOrder: randomValue,
-    claim: randomValue,
-    dateOut: pickupDate,
-    dateIn: dropoffDate,
-  };
+const handlePrint = () => {
+  const originalContents = document.body.innerHTML;
+  const printContents = printRef.current.innerHTML;
 
-  //   make a funtion for random number generate
+  document.body.innerHTML = printContents;
+  window.print();
+  document.body.innerHTML = originalContents;
 
-  function generateRandomString() {
-    const characters =
-      "ABCDEFGHIJ091276837829290qrstuvwxyz0123456789";
-    let result = "";
-    for (let i = 0; i < 8; i++) {
-      result += characters.charAt(
-        Math.floor(Math.random() * characters.length)
-      );
-    }
-    return result;
-  }
+  // window.location.reload()e; // Reload to reset the page
+};
 
   return (
     <>
-    <PageHeader title={"Invoice"}/>
+      <PageHeader title={"Invoice"} />
       <div className="container mx-auto p-4">
-        <div className="bg-white shadow-md rounded p-8 ">
-          
-
+        <div>
+          <button
+            className="mt-4  text-blue-600 px-4 py-2 rounded"
+            onClick={handlePrint}
+          >
+            Print Invoice
+          </button>
+          <Link
+          to="/"
+            className="mt-4 text-blue-600 px-4 py-3 rounded"
+      
+          >
+            Home
+          </Link>
+        </div>
+        <div className="bg-white shadow-md rounded p-8 " ref={printRef}>
           {/* RENTER INFO */}
           <div className="grid grid-cols-3">
             <div className="mb-4">
               <h3 className="text-xl font-semibold">RENTER INFO</h3>
               <p>
-                {customer.name} {customer.email}
+                {rentaldata.customer.name} {rentaldata.customer.email}
               </p>
-              <p>PH: {customer.phone}</p>
+              <p>PH: {rentaldata.customer.phone}</p>
             </div>
             <section className="mb-4">
               <h3 className="text-xl font-semibold">BILL TO:</h3>
-              <p>Name: {customer.name}</p>
-              <p>Email: {customer.email}</p>
-              <p>Phone: {customer.phone}</p>
+              <p>Name: {rentaldata.customer.name}</p>
+              <p>Email: {rentaldata.customer.email}</p>
+              <p>Phone: {rentaldata.customer.phone}</p>
             </section>
           </div>
 
@@ -75,32 +77,26 @@ const Invoice = () => {
             </div>
             <section className="mb-4">
               <h3 className="text-xl font-semibold">UNIT DETAILS</h3>
-              <p>Unit: {car.type}</p>
-              <p>Make & Model: {car.model}</p>
-              <p>discoun: {discounts}</p>
-              <p>additionalCharges: {additionalCharges}</p>
+              <p>Unit: {rentaldata.car.type}</p>
+              <p>Make & Model: {rentaldata.car.model}</p>
             </section>
 
             {/* BILL TO */}
 
             <section className="mb-4">
               <h3 className="text-xl font-semibold">Reservation</h3>
-              <p>RA #{rentalInfo.reservationNumber}</p>
-              <p>REPAIR ORDER: {rentalInfo.repairOrder}</p>
-              <p>CLAIM: {rentalInfo.claim}</p>
+              <p>RA #{rentaldata.reservation.recipt}</p>
+              <p>REPAIR ORDER: {rentaldata.reservation.recipt}</p>
+              <p>CLAIM: {rentaldata.reservation.claim}</p>
               <p>
-                Date/Time Out: {new Date(rentalInfo.dateOut).toLocaleString()}
+                Date/Time Out:{" "}
+                {new Date(
+                  rentaldata.reservation.reservationDate
+                ).toLocaleString()}
               </p>
-              <p>
-                Date/Time In: {new Date(rentalInfo.dateIn).toLocaleString()}
-              </p>
+              <p>QTY: {rentaldata.reservation.reservationNumber}</p>
             </section>
           </div>
-          {/* UNIT DETAILS */}
-
-          {/* RESERVATION INFO */}
-
-          {/* CHARGE SUMMARY */}
           <section className="mb-4">
             <h3 className="text-xl font-semibold">CHARGE SUMMARY</h3>
             <table className="w-full mb-4">
@@ -125,36 +121,30 @@ const Invoice = () => {
                 <tr>
                   <td>Total Estimated Charges</td>
                   {/* <td>${totalAmount}</td> */}
-                  <td>${totalAmount}</td>
-                  <td>${totalAmount}</td>
+                  <td>${totalEstimatePrice}</td>
+                  <td>${totalEstimatePrice}</td>
                 </tr>
                 <tr>
                   <td>Discount</td>
                   {/* {/* <td>-${charges.discount}</td> */}
-                  <td>-${discounts}</td>
-                  <td>-${discounts}</td>
+                  <td>-${discountAmount}</td>
+                  <td>-${discountAmount}</td>
                 </tr>
+
                 <tr>
-                  <td>Damages</td>
-                  {/* <td>${charges.damages}</td>
-                <td>${charges.damages}</td> */}
-                </tr>
-                <tr>
-                  <td>Traffic tickets</td>
-                  {/* <td>${charges.trafficTickets}</td>
-                <td>${charges.trafficTickets}</td> */}
+                  <td>Additonal cost</td>
+                  <td>${additionalCost}</td>
+                  <td>${additionalCost}</td>
                 </tr>
                 <tr>
                   <td>Total Estimated Charges</td>
-                  <td>${totalAmount}</td>
-                  <td>${totalAmount}</td>
+                  <td>${totalPrice}</td>
+                  <td>${totalPrice}</td>
                 </tr>
               </tbody>
             </table>
-            {/* <p>Renter Payments: ${charges.renterPayments}</p> */}
+            <p>{message}</p>
           </section>
-
-          {/* NOTICE */}
           <section className="mb-4">
             <h3 className="text-xl font-semibold">NOTICE</h3>
             <p>Collision Insurance (CDW)- $7 per day</p>
@@ -179,8 +169,6 @@ const Invoice = () => {
               <label htmlFor="reject"> Reject</label>
             </div>
           </section>
-
-          {/* SIGNATURE */}
           <section className="mb-4">
             <h3 className="text-xl font-semibold">Signature</h3>
             <p>Renters Signature: ____________________________</p>
@@ -191,10 +179,9 @@ const Invoice = () => {
             </p>
           </section>
         </div>
-
         <button
           className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={() => window.print()}
+          onClick={handlePrint}
         >
           Print Invoice
         </button>

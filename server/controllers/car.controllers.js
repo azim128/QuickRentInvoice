@@ -1,19 +1,26 @@
 import { AppError } from "../middlewares/errorHandlers.middleware.js";
 import { error, success } from "../middlewares/responseHandler.middleware.js";
-
+import axios from "axios"
 export const getAllCars = async (req, res) => {
   try {
-    const response = await fetch(
+    const response = await axios.get(
       "https://exam-server-7c41747804bf.herokuapp.com/carsList"
     );
-    const data = await response.json();
+    const data = response.data.data; // Assuming the data structure has a 'data' property
     console.log(data);
-    success(res, "Cars fetched successfully", data.data);
+
+    success(res, "Cars fetched successfully", data);
   } catch (err) {
-    console.log(err);
-    error(res, new AppError("An error occurred to fetched data", err.statusCode || 500));
+    error(
+      res,
+      new AppError(
+        "An error occurred",
+        err.response ? err.response.status : 500
+      )
+    );
   }
 };
+
 
 export const getCarById = async (req, res) => {
   // fetch car list then filter by id

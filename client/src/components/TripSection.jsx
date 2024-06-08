@@ -45,6 +45,7 @@ const TripSection = () => {
       },
       pickupDate: pickupDate ? pickupDate.getTime() : null,
       dropoffDate: dropoffDate ? dropoffDate.getTime() : null,
+      rentper: "weekly",
       discounts: formState.discounts,
       additionalCharges: formState.additionalCharges,
     });

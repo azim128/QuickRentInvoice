@@ -1,7 +1,7 @@
 import axios from "axios";
 import propTypes from "prop-types";
 import { createContext, useState } from "react";
-import { serverl_url } from "../config/variableConfig";
+import { fetch_api_url, serverl_url } from "../config/variableConfig";
 import { useEffect } from "react";
 export const CarContext = createContext();
 
@@ -12,7 +12,7 @@ const CarContextProvider = ({ children }) => {
 
   const fetchCars = async () => {
     try {
-      const response = await axios.get(`${serverl_url}/cars`);
+      const response = await axios.get(`${fetch_api_url}`);
       console.log("response.data", response.data);
       setCars(response.data.data);
     } catch (error) {
