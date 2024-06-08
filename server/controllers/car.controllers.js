@@ -7,9 +7,11 @@ export const getAllCars = async (req, res) => {
       "https://exam-server-7c41747804bf.herokuapp.com/carsList"
     );
     const data = await response.json();
+    console.log(data);
     success(res, "Cars fetched successfully", data.data);
   } catch (err) {
-    error(res, new AppError("An error occurred", err.statusCode || 500));
+    console.log(err);
+    error(res, new AppError("An error occurred to fetched data", err.statusCode || 500));
   }
 };
 
