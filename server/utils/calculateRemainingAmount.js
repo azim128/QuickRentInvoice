@@ -1,11 +1,11 @@
-function calculateRemainingAmount(hours, daily,hourly) {
+function calculateRemainingAmount(hours, rates) {
   const days = Math.floor(hours / 24);
   const remainingHours = hours % 24;
 
-  const dailyAmount = days * daily;
-  const hourlyAmount = remainingHours * hourly;
+  const dailyAmount = days * rates.daily;
+  const hourlyAmount = remainingHours * rates.hourly;
 
-  return Math.min(dailyAmount, daily) + hourlyAmount;
+  return Math.min(dailyAmount, rates.daily) + hourlyAmount;
 }
 
 export default calculateRemainingAmount;

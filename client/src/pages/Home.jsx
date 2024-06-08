@@ -1,12 +1,10 @@
-import FeaturedVehicles from "../components/FeaturedVehicles";
-import Hero from "../components/Hero";
-import TripSection from "../components/TripSection";
+import FeaturedVehicles from "../components/home/FeaturedVehicles";
+import Hero from "../components/home/Hero";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <TripSection />
       <FeaturedVehicles />
     </>
   );

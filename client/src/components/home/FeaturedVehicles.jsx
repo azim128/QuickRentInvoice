@@ -1,30 +1,9 @@
+import { useContext } from "react";
+import { CarContext } from "../../contexts/CarContext.jsx";
 import VehicleCard from "./VehicleCard.jsx";
-
 const FeaturedVehicles = () => {
-  const cars = [
-    {
-      id: 1,
-      name: "Mercedes Grand Sedan",
-      brand: "Chevrolet",
-      price: "$500",
-      image: "/car-1.jpg",
-    },
-    {
-      id: 2,
-      name: "Mercedes Grand Sedan",
-      brand: "Chevrolet",
-      price: "$500",
-      image: "/car-2.jpg",
-    },
-    {
-      id: 3,
-      name: "Mercedes Grand Sedan",
-      brand: "Chevrolet",
-      price: "$500",
-      image: "/car-3.jpg",
-    },
-  ];
-
+  const { cars } = useContext(CarContext);
+  console.log("cars", cars);
   return (
     <section className="bg-light py-12">
       <div className="container mx-auto">

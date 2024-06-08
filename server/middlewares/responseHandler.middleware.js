@@ -13,7 +13,7 @@ export const success = (
 };
 
 export const error = (res, error, statusCode = 500) => {
-  console.log(error, res);
+  // console.log(error, res);
   res.status(statusCode).json({
     status: "fail",
     statusCode: error.statusCode,

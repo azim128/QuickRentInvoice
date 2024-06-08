@@ -18,7 +18,7 @@ const Navbar = () => {
           <ul className="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
             <li className="nav-item">
               <a
-                href="index.html"
+                href="#"
                 className="text-white block py-2 pr-4 pl-3 rounded md:p-0 md:hover:bg-transparent md:hover:text-blue-500"
               >
                 Home
