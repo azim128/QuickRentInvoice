@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CarContext } from "../contexts/CarContext";
-import SelectCar from "./rental/SelectCar";
-import CustomerDetails from "./rental/CustomerDetails";
-import DateSelector from "./rental/DateSelector";
-import Charges from "./rental/Charges";
-import FeatureSection from "./rental/FeatureSection";
+import { CarContext } from "../../contexts/CarContext";
+import SelectCar from "./SelectCar";
+import CustomerDetails from "./CustomerDetails";
+import DateSelector from "./DateSelector";
+import Charges from "./Charges";
+import FeatureSection from "./FeatureSection";
 
 
 const TripSection = () => {

@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CarContext } from "../../contexts/CarContext";
 const VehicleCard = ({ car }) => {
+  console.log("car",car)
   const [pricingOption, setPricingOption] = useState("daily");
   const { setSelectedCar } = useContext(CarContext);
   const navigate = useNavigate();
@@ -65,7 +66,9 @@ const VehicleCard = ({ car }) => {
           </button>
         </div>
         <h2 className="text-2xl font-bold">
-          <a href="#">{car.name}</a>
+          <a href="#">
+            {`${car.make} ${car.model}`}
+          </a>
         </h2>
         <div className="flex justify-between items-center mt-2 mb-4">
           <span className="text-gray-600">{car.brand}</span>

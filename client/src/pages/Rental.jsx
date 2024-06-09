@@ -1,5 +1,6 @@
-import TripSection from "../components/TripSection";
+
 import PageHeader from "../components/common/PageHeader";
+import TripSection from "../components/rental/TripSection";
 
 const Rental = () => {
   return (
